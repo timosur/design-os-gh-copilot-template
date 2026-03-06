@@ -127,6 +127,16 @@ Once approved, create two files:
 }
 ```
 
+## Step 6b: Update Google Fonts in index.html
+
+After saving the design token files, update `index.html` to load the chosen fonts from Google Fonts.
+
+Find the existing Google Fonts `<link>` tag in `index.html` and **add** the product's heading, body, and mono fonts to it (if not already present). Keep the existing DM Sans and IBM Plex Mono fonts — those are used by Design OS itself.
+
+For example, if the user chose `Nunito Sans` for heading/body and `IBM Plex Mono` for mono, the link should include `&family=Nunito+Sans:wght@400;500;600;700;800` appended to the existing URL.
+
+**Important:** Do not remove the existing fonts (DM Sans, IBM Plex Mono). Only add the new product fonts.
+
 ## Step 7: Confirm Completion
 
 Let the user know:
