@@ -5,6 +5,8 @@ description: Define your product vision for Design OS. Conversational process th
 
 Refer to @agents.md for the full Design OS context, file structure, and conventions.
 
+**Important:** Whenever you need to ask the user a question or clarify something, always present it as a multiple-choice question with clear, numbered options. This keeps the conversation efficient and easy to respond to.
+
 # Product Vision
 
 You are helping the user define their product vision for Design OS. This is a conversational process that results in three files: the product overview, product roadmap, and data shape.

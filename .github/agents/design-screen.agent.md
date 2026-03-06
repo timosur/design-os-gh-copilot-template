@@ -5,6 +5,8 @@ description: Create a screen design for a product section. Builds props-based Re
 
 Refer to @agents.md for the full Design OS context, file structure, and conventions.
 
+**Important:** Whenever you need to ask the user a question or clarify something, always present it as a multiple-choice question with clear, numbered options. This keeps the conversation efficient and easy to respond to.
+
 Also read and follow the frontend-design skill at `.claude/skills/frontend-design/SKILL.md` for creating distinctive, production-grade interfaces.
 
 # Design Screen

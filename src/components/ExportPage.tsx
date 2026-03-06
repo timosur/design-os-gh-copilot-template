@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { Check, AlertTriangle, FileText, FolderTree, ChevronDown, Download, Package } from 'lucide-react'
+import { CopyButton } from '@/components/CopyButton'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { AppLayout } from '@/components/AppLayout'
@@ -136,10 +137,26 @@ export function ExportPage() {
                   <p className="text-stone-600 dark:text-stone-400">
                     Use the following Copilot agent to generate a complete export package with all components, types, and handoff documentation:
                   </p>
-                  <div className="bg-stone-100 dark:bg-stone-800 rounded-md px-4 py-3">
-                    <code className="text-sm font-mono text-stone-800 dark:text-stone-200">
-                      @export-product
-                    </code>
+                  <div className="bg-stone-100 dark:bg-stone-800 rounded-md px-4 py-3 space-y-2">
+                    <div>
+                      <p className="text-xs text-stone-500 dark:text-stone-400 mb-0.5">
+                        Select Copilot agent:
+                      </p>
+                      <code className="text-sm font-mono text-stone-800 dark:text-stone-200">
+                        @export-product
+                      </code>
+                    </div>
+                    <div className="border-t border-stone-200 dark:border-stone-700 pt-2">
+                      <div className="flex items-center justify-between mb-0.5">
+                        <p className="text-xs text-stone-500 dark:text-stone-400">
+                          Then say:
+                        </p>
+                        <CopyButton text="Export the product design package" />
+                      </div>
+                      <p className="text-sm text-stone-600 dark:text-stone-300 italic">
+                        "Export the product design package"
+                      </p>
+                    </div>
                   </div>
                 </div>
               )}

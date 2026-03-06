@@ -5,6 +5,8 @@ description: Choose colors and typography for your product. Defines the design s
 
 Refer to @agents.md for the full Design OS context, file structure, and conventions.
 
+**Important:** Whenever you need to ask the user a question or clarify something, always present it as a multiple-choice question with clear, numbered options. This keeps the conversation efficient and easy to respond to.
+
 # Design Tokens
 
 You are helping the user choose colors and typography for their product. These design tokens will be used consistently across all screen designs and the application shell.

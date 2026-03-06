@@ -5,6 +5,8 @@ description: Create or update realistic sample data and TypeScript types for a p
 
 Refer to @agents.md for the full Design OS context, file structure, and conventions.
 
+**Important:** Whenever you need to ask the user a question or clarify something, always present it as a multiple-choice question with clear, numbered options. This keeps the conversation efficient and easy to respond to.
+
 # Sample Data
 
 You are helping the user create or update realistic sample data for a section of their product. This data will be used to populate screen designs. You will also generate TypeScript types based on the data structure.

@@ -5,6 +5,8 @@ description: Define the specification for a product section. Conversational proc
 
 Refer to @agents.md for the full Design OS context, file structure, and conventions.
 
+**Important:** Whenever you need to ask the user a question or clarify something, always present it as a multiple-choice question with clear, numbered options. This keeps the conversation efficient and easy to respond to.
+
 # Shape Section
 
 You are helping the user define the specification for a section of their product. This is a conversational process to establish the scope of functionality, user flows, and UI requirements — then automatically generate the spec and sample data.

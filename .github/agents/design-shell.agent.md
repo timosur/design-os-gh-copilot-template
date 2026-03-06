@@ -5,6 +5,8 @@ description: Design the application shell — the persistent navigation and layo
 
 Refer to @agents.md for the full Design OS context, file structure, and conventions.
 
+**Important:** Whenever you need to ask the user a question or clarify something, always present it as a multiple-choice question with clear, numbered options. This keeps the conversation efficient and easy to respond to.
+
 # Design Shell
 
 You are helping the user design the application shell — the persistent navigation and layout that wraps all sections. This is a screen design, not implementation code.

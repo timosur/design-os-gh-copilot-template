@@ -5,6 +5,8 @@ description: Capture a screenshot of a screen design using Playwright. Saves scr
 
 Refer to @agents.md for the full Design OS context, file structure, and conventions.
 
+**Important:** Whenever you need to ask the user a question or clarify something, always present it as a multiple-choice question with clear, numbered options. This keeps the conversation efficient and easy to respond to.
+
 # Screenshot Screen Design
 
 You are helping the user capture a screenshot of a screen design they've created. The screenshot will be saved to the product folder for documentation purposes.

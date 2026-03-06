@@ -1,5 +1,6 @@
 import { FileText, Map, ClipboardList, Database, Layout, Package, Boxes, Palette, PanelLeft } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import { CopyButton } from '@/components/CopyButton'
 
 type EmptyStateType = 'overview' | 'roadmap' | 'spec' | 'data' | 'screen-designs' | 'data-shape' | 'design-system' | 'shell' | 'export'
 
@@ -11,66 +12,76 @@ const config: Record<EmptyStateType, {
   icon: typeof FileText
   title: string
   agent: string
+  starter: string
   description: string
 }> = {
   overview: {
     icon: FileText,
     title: 'No product defined yet',
     agent: '@product-vision',
+    starter: 'Let\'s define my product vision',
     description: 'Define your product vision, key problems, and features',
   },
   roadmap: {
     icon: Map,
     title: 'No roadmap defined yet',
     agent: '@product-roadmap',
+    starter: 'Create my product roadmap',
     description: 'Break down your product into development sections',
   },
   spec: {
     icon: ClipboardList,
     title: 'No specification defined yet',
     agent: '@shape-section',
+    starter: 'Let\'s shape this section',
     description: 'Define the user flows and UI requirements',
   },
   data: {
     icon: Database,
     title: 'No sample data generated yet',
     agent: '@sample-data',
+    starter: 'Generate sample data for this section',
     description: 'Create realistic sample data for screen designs',
   },
   'screen-designs': {
     icon: Layout,
     title: 'No screen designs created yet',
     agent: '@design-screen',
+    starter: 'Create a screen design for this section',
     description: 'Create screen designs for this section',
   },
   'data-shape': {
     icon: Boxes,
     title: 'No data shape defined yet',
     agent: '@data-shape',
+    starter: 'Define the data shape for my product',
     description: 'Sketch out the general shape of your product\'s data',
   },
   'design-system': {
     icon: Palette,
     title: 'No design tokens defined yet',
     agent: '@design-tokens',
+    starter: 'Help me choose colors and fonts',
     description: 'Choose colors and typography for your product',
   },
   shell: {
     icon: PanelLeft,
     title: 'No application shell designed yet',
     agent: '@design-shell',
+    starter: 'Design the application shell',
     description: 'Design the navigation and layout',
   },
   export: {
     icon: Package,
     title: 'Ready to export',
     agent: '@export-product',
+    starter: 'Export the product design package',
     description: 'Generate the complete handoff package',
   },
 }
 
 export function EmptyState({ type }: EmptyStateProps) {
-  const { icon: Icon, title, agent, description } = config[type]
+  const { icon: Icon, title, agent, starter, description } = config[type]
 
   return (
     <Card className="border-stone-200 dark:border-stone-700 shadow-sm border-dashed">
@@ -85,13 +96,26 @@ export function EmptyState({ type }: EmptyStateProps) {
           <p className="text-sm text-stone-500 dark:text-stone-400 mb-4">
             {description}
           </p>
-          <div className="bg-stone-100 dark:bg-stone-800 rounded-md px-4 py-2.5 w-full">
-            <p className="text-xs text-stone-500 dark:text-stone-400 mb-0.5">
-              Use Copilot agent:
-            </p>
-            <code className="text-sm font-mono text-stone-700 dark:text-stone-300">
-              {agent}
-            </code>
+          <div className="bg-stone-100 dark:bg-stone-800 rounded-md px-4 py-2.5 w-full space-y-2">
+            <div>
+              <p className="text-xs text-stone-500 dark:text-stone-400 mb-0.5">
+                Select Copilot agent:
+              </p>
+              <code className="text-sm font-mono text-stone-700 dark:text-stone-300">
+                {agent}
+              </code>
+            </div>
+            <div className="border-t border-stone-200 dark:border-stone-700 pt-2">
+              <div className="flex items-center justify-between mb-0.5">
+                <p className="text-xs text-stone-500 dark:text-stone-400">
+                  Then say:
+                </p>
+                <CopyButton text={starter} />
+              </div>
+              <p className="text-sm text-stone-600 dark:text-stone-300 italic">
+                "{starter}"
+              </p>
+            </div>
           </div>
         </div>
       </CardContent>
