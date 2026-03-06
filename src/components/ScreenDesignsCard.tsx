@@ -7,12 +7,13 @@ import type { ScreenDesignInfo } from '@/types/section'
 interface ScreenDesignsCardProps {
   screenDesigns: ScreenDesignInfo[]
   sectionId: string
+  sectionName?: string
 }
 
-export function ScreenDesignsCard({ screenDesigns, sectionId }: ScreenDesignsCardProps) {
+export function ScreenDesignsCard({ screenDesigns, sectionId, sectionName }: ScreenDesignsCardProps) {
   // Empty state
   if (screenDesigns.length === 0) {
-    return <EmptyState type="screen-designs" />
+    return <EmptyState type="screen-designs" sectionName={sectionName} />
   }
 
   return (

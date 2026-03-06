@@ -12,20 +12,16 @@ You're ready to export when:
 
 You can export at any point—it doesn't have to be "complete." Exporting generates a snapshot of your current designs. You can always export again later as you add more sections.
 
-## Running the Export
+## Running the Export (`@export-product`)
 
-```
-/export-product
-```
+Select the `@export-product` agent in Copilot Chat and start a conversation. The agent will:
 
-The export command:
-
-1. **Checks prerequisites** — Verifies required files exist
-2. **Gathers all design assets** — Components, types, data, tokens
-3. **Generates implementation instructions** — Including ready-to-use prompts
-4. **Generates test instructions** — TDD specs for each section
-5. **Creates the export package** — A complete `product-plan/` directory
-6. **Creates a zip file** — `product-plan.zip` for easy download
+1. **Check prerequisites** — Verify required files exist
+2. **Gather all design assets** — Components, types, data, tokens
+3. **Generate implementation instructions** — Including ready-to-use prompts
+4. **Generate test instructions** — TDD specs for each section
+5. **Create the export package** — A complete `product-plan/` directory
+6. **Create a zip file** — `product-plan.zip` for easy download
 
 ## What's Included
 

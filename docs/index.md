@@ -25,18 +25,18 @@ Each step is a conversation. The AI asks questions, you provide direction, and t
 
 Design OS is its own separate codebase—a design environment you use *before* building. When you're done, you export components and assets to import into your actual product's codebase.
 
-You interact with Design OS through slash commands. Each command walks you through a specific part of the process:
+You interact with Design OS through **Copilot agents**. Each agent walks you through a specific part of the process:
 
-- `/product-vision` — Define your product, break it into sections, and sketch the data shape — all in one flow
-- `/design-tokens` — Choose your color palette and typography
-- `/design-shell` — Design navigation and layout
-- `/shape-section` — Define a section's scope, requirements, and generate sample data + types
-- `/design-screen` — Create production-ready React components
-- `/screenshot-design` — Snap a screenshot of a finished design screen for quick reference
-- `/export-product` — Generate the complete handoff package
-- `/product-roadmap` — Update your product sections (after initial creation)
-- `/data-shape` — Update your data entities (after initial creation)
-- `/sample-data` — Update sample data and types (after initial creation)
+- `@product-vision` — Define your product name, description, problems, solutions, and key features
+- `@product-roadmap` — Define the main areas/sections of your product
+- `@data-shape` — Sketch out the core data entities and relationships
+- `@design-tokens` — Choose your color palette and typography
+- `@design-shell` — Design navigation and layout
+- `@shape-section` — Define a section's scope and requirements
+- `@sample-data` — Generate sample data and TypeScript types for a section
+- `@design-screen` — Create production-ready React components
+- `@screenshot-design` — Snap a screenshot of a finished design screen for quick reference
+- `@export-product` — Generate the complete handoff package
 
 See [Usage](usage.md) for the full workflow.
 
@@ -47,7 +47,7 @@ See [Usage](usage.md) for the full workflow.
 
 ## Compatibility
 
-- Works with any AI coding agent: Claude Code, Cursor, Copilot, or anything that can implement from a handoff
+- Works with GitHub Copilot in VS Code via custom agents
 - Your frontend needs React and Tailwind CSS
 - Your backend can be anything—Rails, Laravel, Next.js, Python, whatever
 

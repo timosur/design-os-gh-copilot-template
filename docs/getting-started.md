@@ -31,15 +31,9 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## Open Claude Code
+## Open GitHub Copilot Chat
 
-In the same project directory, start Claude Code:
-
-```bash
-claude
-```
-
-You're ready to start designing. Run `/product-vision` to begin defining your product.
+In VS Code, open Copilot Chat and select the `@product-vision` agent from the agent dropdown to begin defining your product.
 
 ---
 

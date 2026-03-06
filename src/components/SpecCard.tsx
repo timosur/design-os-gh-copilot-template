@@ -8,15 +8,16 @@ import type { ParsedSpec } from '@/types/section'
 interface SpecCardProps {
   spec: ParsedSpec | null
   sectionTitle?: string
+  sectionName?: string
 }
 
-export function SpecCard({ spec, sectionTitle }: SpecCardProps) {
+export function SpecCard({ spec, sectionTitle, sectionName }: SpecCardProps) {
   const [userFlowsOpen, setUserFlowsOpen] = useState(false)
   const [uiReqOpen, setUiReqOpen] = useState(false)
 
   // Empty state
   if (!spec) {
-    return <EmptyState type="spec" />
+    return <EmptyState type="spec" sectionName={sectionName} />
   }
 
   return (
@@ -45,9 +46,8 @@ export function SpecCard({ spec, sectionTitle }: SpecCardProps) {
                 </span>
               </span>
               <ChevronDown
-                className={`w-4 h-4 text-stone-400 dark:text-stone-500 transition-transform ${
-                  userFlowsOpen ? 'rotate-180' : ''
-                }`}
+                className={`w-4 h-4 text-stone-400 dark:text-stone-500 transition-transform ${userFlowsOpen ? 'rotate-180' : ''
+                  }`}
                 strokeWidth={1.5}
               />
             </CollapsibleTrigger>
@@ -77,9 +77,8 @@ export function SpecCard({ spec, sectionTitle }: SpecCardProps) {
                 </span>
               </span>
               <ChevronDown
-                className={`w-4 h-4 text-stone-400 dark:text-stone-500 transition-transform ${
-                  uiReqOpen ? 'rotate-180' : ''
-                }`}
+                className={`w-4 h-4 text-stone-400 dark:text-stone-500 transition-transform ${uiReqOpen ? 'rotate-180' : ''
+                  }`}
                 strokeWidth={1.5}
               />
             </CollapsibleTrigger>

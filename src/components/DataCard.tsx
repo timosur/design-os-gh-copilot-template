@@ -11,6 +11,7 @@ interface DataMeta {
 
 interface DataCardProps {
   data: Record<string, unknown> | null
+  sectionName?: string
 }
 
 function extractMeta(data: Record<string, unknown>): DataMeta | null {
@@ -37,12 +38,12 @@ function countRecords(data: Record<string, unknown>): number {
   return count
 }
 
-export function DataCard({ data }: DataCardProps) {
+export function DataCard({ data, sectionName }: DataCardProps) {
   const [isJsonOpen, setIsJsonOpen] = useState(false)
 
   // Empty state
   if (!data) {
-    return <EmptyState type="data" />
+    return <EmptyState type="data" sectionName={sectionName} />
   }
 
   const meta = extractMeta(data)
@@ -115,9 +116,8 @@ export function DataCard({ data }: DataCardProps) {
         <Collapsible open={isJsonOpen} onOpenChange={setIsJsonOpen}>
           <CollapsibleTrigger className="flex items-center gap-2 text-left group">
             <ChevronDown
-              className={`w-4 h-4 text-stone-400 dark:text-stone-500 transition-transform ${
-                isJsonOpen ? 'rotate-180' : ''
-              }`}
+              className={`w-4 h-4 text-stone-400 dark:text-stone-500 transition-transform ${isJsonOpen ? 'rotate-180' : ''
+                }`}
               strokeWidth={1.5}
             />
             <span className="text-xs text-stone-500 dark:text-stone-400 group-hover:text-stone-700 dark:group-hover:text-stone-300 transition-colors">

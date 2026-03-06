@@ -2,13 +2,9 @@
 
 After completing [Product Planning](product-planning.md), you're ready to design individual sections. Work through each section in your roadmap, completing these steps for each one.
 
-## 1. Shape the Section
+## 1. Shape the Section (`@shape-section`)
 
-```
-/shape-section
-```
-
-Define what the section does and generate its sample data — all in one step. If you have multiple sections, you'll be asked which one to work on.
+Define what the section does and how it should work. If you have multiple sections, you'll be asked which one to work on.
 
 This is a conversational process to establish:
 
@@ -17,27 +13,27 @@ This is a conversational process to establish:
 - **UI requirements** — Specific layouts, patterns, or components needed
 - **Scope boundaries** — What's intentionally excluded
 
-Share any notes or ideas you have. The AI will ask clarifying questions about user actions, information to display, and UI patterns. Focus on experience and interface requirements—no backend or database details.
+Share any notes or ideas you have. The agent will ask clarifying questions about user actions, information to display, and UI patterns. Focus on experience and interface requirements—no backend or database details.
 
 You'll also be asked whether this section should display inside the application shell (most sections do) or as a standalone page (for things like landing pages or embedded widgets).
 
-Once it has enough information, the AI writes the spec and generates sample data + TypeScript types automatically:
+**Creates:** `product/sections/[section-id]/spec.md`
 
-- **Sample data** — 5-10 realistic records with varied content, edge cases, and a `_meta` section describing each entity
-- **TypeScript types** — Data interfaces for each entity, plus a Props interface with callbacks for actions
+## 2. Generate Sample Data (`@sample-data`)
+
+Generate sample data and TypeScript types for the section. The agent reviews the section spec and asks clarifying questions about:
+
+- **Entity structure** — What fields and properties each entity needs
+- **Sample records** — 5-10 realistic records with varied content and edge cases
+- **TypeScript types** — Data interfaces for each entity, plus a Props interface with callbacks
 
 **Creates:**
-- `product/sections/[section-id]/spec.md` — Section specification
 - `product/sections/[section-id]/data.json` — Sample data with `_meta` descriptions
 - `product/sections/[section-id]/types.ts` — TypeScript interfaces
 
-**To update sample data later:** Run `/sample-data` to modify the data structure or sample records.
+Run `@sample-data` again any time you need to update the data structure or sample records.
 
-## 2. Design the Screen
-
-```
-/design-screen
-```
+## 3. Design the Screen (`@design-screen`)
 
 Build the actual React components for the section. This is where the spec and sample data become a working UI.
 
@@ -75,7 +71,7 @@ All screen designs include:
 
 ### Multiple Views
 
-If the spec implies multiple views (list view, detail view, form, etc.), you'll be asked which to build first. Run `/design-screen` again for additional views.
+If the spec implies multiple views (list view, detail view, form, etc.), you'll be asked which to build first. Run `@design-screen` again for additional views.
 
 **Creates:**
 - `src/sections/[section-id]/components/[ViewName].tsx` — Main component
@@ -85,19 +81,15 @@ If the spec implies multiple views (list view, detail view, form, etc.), you'll 
 
 **Important:** Restart your dev server after creating screen designs to see the changes.
 
-## 3. Capture Screenshots (Optional)
-
-```
-/screenshot-design
-```
+## 4. Capture Screenshots (Optional) (`@screenshot-design`)
 
 Take screenshots of your screen designs for documentation. Screenshots are saved alongside the spec and data files.
 
-This command:
-1. Starts the dev server automatically
-2. Navigates to your screen design
-3. Hides the Design OS navigation bar
-4. Captures a full-page screenshot
+The agent will:
+1. Start the dev server automatically
+2. Navigate to your screen design
+3. Hide the Design OS navigation bar
+4. Capture a full-page screenshot
 
 Screenshots are useful for:
 - Visual reference during implementation

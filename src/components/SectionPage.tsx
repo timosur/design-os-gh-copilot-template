@@ -97,18 +97,18 @@ export function SectionPage() {
 
         {/* Step 1: Section Overview (Spec) */}
         <StepIndicator step={1} status={stepStatuses[0]}>
-          <SpecCard spec={sectionData?.specParsed || null} sectionTitle="Section Overview" />
+          <SpecCard spec={sectionData?.specParsed || null} sectionTitle="Section Overview" sectionName={section.title} />
         </StepIndicator>
 
         {/* Step 2: Sample Data */}
         <StepIndicator step={2} status={stepStatuses[1]}>
-          <DataCard data={sectionData?.data || null} />
+          <DataCard data={sectionData?.data || null} sectionName={section.title} />
         </StepIndicator>
 
         {/* Step 3: Screen Designs */}
         <StepIndicator step={3} status={stepStatuses[2]}>
           {!sectionData?.screenDesigns || sectionData.screenDesigns.length === 0 ? (
-            <EmptyState type="screen-designs" />
+            <EmptyState type="screen-designs" sectionName={section.title} />
           ) : (
             <Card className="border-stone-200 dark:border-stone-700 shadow-sm">
               <CardHeader className="pb-4">
@@ -174,10 +174,10 @@ export function SectionPage() {
                         <p className="text-xs text-stone-500 dark:text-stone-400">
                           Then say:
                         </p>
-                        <CopyButton text="Capture a screenshot of this screen design" />
+                        <CopyButton text={`Capture a screenshot of the ${section.title} screen design`} />
                       </div>
                       <p className="text-sm text-stone-600 dark:text-stone-300 italic">
-                        "Capture a screenshot of this screen design"
+                        "Capture a screenshot of the {section.title} screen design"
                       </p>
                     </div>
                   </div>

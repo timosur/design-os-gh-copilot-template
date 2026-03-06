@@ -2,37 +2,44 @@
 
 The first phase of Design OS establishes the foundation for your product. Complete these steps before designing any screens.
 
-## 1. Product Vision
+## 1. Product Vision (`@product-vision`)
 
-```
-/product-vision
-```
-
-Define your product's core identity in one conversational flow. You'll establish:
+Define your product's core identity. The agent will ask you about:
 
 - **Product name** — A clear, memorable name
 - **Description** — 1-3 sentences capturing the essence
 - **Problems & solutions** — What pain points you're addressing and how
 - **Key features** — The main capabilities that make this possible
-- **Roadmap sections** — 3-5 self-contained areas of your product
-- **Data shape** — The core entities ("nouns") and how they relate
 
-Share any notes, ideas, or rough thoughts you have about what you're building. The AI will ask clarifying questions covering your vision, the main areas of your product, and the core things users will work with. Once it has enough information, it writes all three files automatically.
+Share any notes, ideas, or rough thoughts you have about what you're building. The agent will ask clarifying questions through interactive multiple-choice prompts, then generate the overview once you've confirmed direction.
 
-**Creates:**
-- `product/product-overview.md` — Product description, problems/solutions, features
-- `product/product-roadmap.md` — 3-5 sections ordered by development priority
-- `product/data-shape/data-shape.md` — Core entities and relationships
+**Creates:** `product/product-overview.md`
 
-**To update individually later:**
-- `/product-roadmap` — Add, remove, or reorder sections
-- `/data-shape` — Add, remove, or update entities and relationships
+## 2. Product Roadmap (`@product-roadmap`)
 
-## 2. Design Tokens
+Define the main sections (features/areas) of your product. The agent will ask you about:
 
-```
-/design-tokens
-```
+- **Section names** — Clear, descriptive titles for each area
+- **Section descriptions** — What each section covers
+- **Priority order** — Which sections to build first
+
+The agent reviews your product overview for context and asks clarifying questions before generating the roadmap.
+
+**Creates:** `product/product-roadmap.md`
+
+## 3. Data Shape (`@data-shape`)
+
+Sketch out the core entities ("nouns") and their relationships. The agent will ask you about:
+
+- **Entity names** — The core things users interact with
+- **Descriptions** — What each entity represents
+- **Relationships** — How entities connect to each other
+
+The agent reviews your product overview and roadmap for context and asks clarifying questions before generating the data shape.
+
+**Creates:** `product/data-shape/data-shape.md`
+
+## 4. Design Tokens (`@design-tokens`)
 
 Choose your visual identity:
 
@@ -52,15 +59,11 @@ Select from Google Fonts:
 - **Body** — For paragraphs and UI text (e.g., `Inter`, `Source Sans 3`, `Nunito Sans`)
 - **Mono** — For code and technical content (e.g., `JetBrains Mono`, `Fira Code`)
 
-The AI will suggest options based on your product type and help you find a combination that fits.
+The agent will suggest options based on your product type and help you find a combination that fits.
 
 **Creates:** `product/design-system/colors.json`, `product/design-system/typography.json`
 
-## 3. Application Shell
-
-```
-/design-shell
-```
+## 5. Application Shell (`@design-shell`)
 
 Design the persistent navigation and layout that wraps all your sections. Choose from common patterns:
 

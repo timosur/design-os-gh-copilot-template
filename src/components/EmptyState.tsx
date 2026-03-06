@@ -6,13 +6,14 @@ type EmptyStateType = 'overview' | 'roadmap' | 'spec' | 'data' | 'screen-designs
 
 interface EmptyStateProps {
   type: EmptyStateType
+  sectionName?: string
 }
 
 const config: Record<EmptyStateType, {
   icon: typeof FileText
   title: string
   agent: string
-  starter: string
+  starter: string | ((name?: string) => string)
   description: string
 }> = {
   overview: {
@@ -33,21 +34,21 @@ const config: Record<EmptyStateType, {
     icon: ClipboardList,
     title: 'No specification defined yet',
     agent: '@shape-section',
-    starter: 'Let\'s shape this section',
+    starter: (name?: string) => name ? `Let's shape the ${name} section` : 'Let\'s shape this section',
     description: 'Define the user flows and UI requirements',
   },
   data: {
     icon: Database,
     title: 'No sample data generated yet',
     agent: '@sample-data',
-    starter: 'Generate sample data for this section',
+    starter: (name?: string) => name ? `Generate sample data for the ${name} section` : 'Generate sample data for this section',
     description: 'Create realistic sample data for screen designs',
   },
   'screen-designs': {
     icon: Layout,
     title: 'No screen designs created yet',
     agent: '@design-screen',
-    starter: 'Create a screen design for this section',
+    starter: (name?: string) => name ? `Create a screen design for the ${name} section` : 'Create a screen design for this section',
     description: 'Create screen designs for this section',
   },
   'data-shape': {
@@ -80,8 +81,9 @@ const config: Record<EmptyStateType, {
   },
 }
 
-export function EmptyState({ type }: EmptyStateProps) {
-  const { icon: Icon, title, agent, starter, description } = config[type]
+export function EmptyState({ type, sectionName }: EmptyStateProps) {
+  const { icon: Icon, title, agent, starter: starterConfig, description } = config[type]
+  const starter = typeof starterConfig === 'function' ? starterConfig(sectionName) : starterConfig
 
   return (
     <Card className="border-stone-200 dark:border-stone-700 shadow-sm border-dashed">
