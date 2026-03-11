@@ -69,29 +69,35 @@ Define the main sections (features/areas) of the product.
 Sketch out the core entities and their relationships.
 **Output:** `product/data-shape/data-shape.md`
 
-### 4. Design System (`@design-tokens`)
+### 4. Brand Guide (`@brand-guide`) — _Optional but Recommended_
 
-Choose your color palette (from Tailwind) and typography (from Google Fonts). These tokens are applied to all screen designs.
+Import and analyze brand resources (logos, style guides, color palettes, fonts) to generate a comprehensive brand guide. This informs all downstream design decisions.
+**Input:** Place brand assets in `product/brand-guide/resources/`
+**Output:** `product/brand-guide/brand-guide.json`, `product/brand-guide/brand-guide.md`
+
+### 5. Design System (`@design-tokens`)
+
+Choose your color palette (from Tailwind) and typography (from Google Fonts). If a brand guide exists, suggestions are pre-populated from it.
 **Output:** `product/design-system/colors.json`, `product/design-system/typography.json`
 
-### 5. Application Shell (`@design-shell`)
+### 6. Application Shell (`@design-shell`)
 
-Design the persistent navigation and layout that wraps all sections.
+Design the persistent navigation and layout that wraps all sections. Uses brand personality and UI style preferences if available.
 **Output:** `product/shell/spec.md`, `src/shell/components/`
 
-### 6. For Each Section:
+### 7. For Each Section:
 
 - `@shape-section` — Define the specification and generate sample data + types
 - `@sample-data` — Update sample data and types (if already created)
-- `@design-screen` — Create screen designs
+- `@design-screen` — Create screen designs (applies brand voice and UI style)
 - `@screenshot-design` — Capture screenshots
 
-### 7. Clickdummy (`@clickdummy`)
+### 8. Clickdummy (`@clickdummy`)
 
 Assemble a fully navigable clickdummy from all designed sections. Wraps screen designs in the application shell with working inter-section navigation at `/clickdummy/preview`. Use this to demo to stakeholders and gather feedback before exporting.
 **Output:** `src/clickdummy/ClickdummyApp.tsx`, route at `/clickdummy/preview`
 
-### 8. Export (`@export-product`)
+### 9. Export (`@export-product`)
 
 Generate the complete export package with all components, types, and handoff documentation.
 **Output:** `product-plan/`
@@ -107,6 +113,11 @@ product/                           # Product definition (portable)
 │
 ├── data-shape/                    # Product data shape
 │   └── data-shape.md              # Entity names, descriptions, and relationships
+│
+├── brand-guide/                   # Brand identity (optional)
+│   ├── resources/                 # User-imported brand assets (logos, style guides, etc.)
+│   ├── brand-guide.json           # Structured brand data for agents
+│   └── brand-guide.md             # Human-readable brand documentation
 │
 ├── design-system/                 # Design tokens
 │   ├── colors.json                # { primary, secondary, neutral }
@@ -141,6 +152,7 @@ src/
 product-plan/                      # Export package (generated)
 ├── README.md                      # Quick start guide
 ├── product-overview.md            # Product summary
+├── brand-guide.md                 # Brand guidelines (if created)
 ├── prompts/                       # Ready-to-use prompts for coding agents
 │   ├── one-shot-prompt.md         # Prompt for full implementation
 │   └── section-prompt.md          # Prompt template for incremental

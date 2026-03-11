@@ -16,11 +16,13 @@ You are helping the user export their complete product design as a handoff packa
 Verify the minimum requirements exist:
 
 **Required:**
+
 - `product/product-overview.md` — Product overview
 - `product/product-roadmap.md` — Sections defined
 - At least one section with screen designs in `src/sections/[section-id]/`
 
 **Recommended (show warning if missing):**
+
 - `product/data-shape/data-shape.md` — Product entities
 - `product/design-system/colors.json` — Color tokens
 - `product/design-system/typography.json` — Typography tokens
@@ -29,6 +31,7 @@ Verify the minimum requirements exist:
 If required files are missing:
 
 "To export your product, you need at minimum:
+
 - A product overview (`product-vision` agent)
 - A roadmap with sections (`product-roadmap` agent)
 - At least one section with screen designs
@@ -46,11 +49,12 @@ Read all relevant files:
 1. `product/product-overview.md` — Product name, description, features
 2. `product/product-roadmap.md` — List of sections in order
 3. `product/data-shape/data-shape.md` (if exists)
-4. `product/design-system/colors.json` (if exists)
-5. `product/design-system/typography.json` (if exists)
-6. `product/shell/spec.md` (if exists)
-7. For each section: `spec.md`, `data.json`, `types.ts`
-8. List screen design components in `src/sections/` and `src/shell/`
+4. `product/brand-guide/brand-guide.md` (if exists) — Brand guidelines
+5. `product/design-system/colors.json` (if exists)
+6. `product/design-system/typography.json` (if exists)
+7. `product/shell/spec.md` (if exists)
+8. For each section: `spec.md`, `data.json`, `types.ts`
+9. List screen design components in `src/sections/` and `src/shell/`
 
 ## Step 3: Create Export Directory Structure
 
@@ -60,6 +64,7 @@ Create the `product-plan/` directory with this structure:
 product-plan/
 ├── README.md
 ├── product-overview.md
+├── brand-guide.md (if exists)
 ├── prompts/
 │   ├── one-shot-prompt.md
 │   └── section-prompt.md
@@ -93,6 +98,20 @@ product-plan/
 
 Create `product-plan/product-overview.md` with: product name, summary, planned sections list, product entities, design system info, and implementation sequence (milestones starting with Shell, then each section).
 
+## Step 4b: Copy Brand Guide (if exists)
+
+If `product/brand-guide/brand-guide.md` exists, copy it to `product-plan/brand-guide.md`.
+
+The brand guide provides implementers with:
+
+- Color and typography rationale
+- Brand voice and tone guidelines
+- UI style preferences
+- Logo usage guidelines
+- Brand personality context
+
+This helps maintain brand consistency during implementation.
+
 ## Step 5: Generate Milestone Instructions
 
 Each milestone instruction file should begin with this preamble:
@@ -123,6 +142,7 @@ The components are props-based — they accept data and fire callbacks. How you 
 ### 01-shell.md
 
 Place in `product-plan/instructions/incremental/01-shell.md`. Cover:
+
 - Setting up design tokens (CSS custom properties, Tailwind colors, Google Fonts)
 - Implementing the application shell (copy components, wire up navigation, user menu)
 - Responsive behavior
@@ -131,6 +151,7 @@ Place in `product-plan/instructions/incremental/01-shell.md`. Cover:
 ### [NN]-[section-id].md (for each section, starting at 02)
 
 Place in `product-plan/instructions/incremental/[NN]-[section-id].md`. Each should cover:
+
 - Goal and overview (what users can do)
 - Key functionality bullet points (3-6 capabilities)
 - Components provided (list with descriptions)
@@ -148,21 +169,27 @@ Create `product-plan/instructions/one-shot-instructions.md` by combining all mil
 ## Step 7: Copy and Transform Components
 
 ### Shell Components
+
 Copy from `src/shell/components/` to `product-plan/shell/components/`:
+
 - Transform import paths from `@/...` to relative paths
 - Remove any Design OS-specific imports
 - Ensure components are self-contained
 
 ### Section Components
+
 For each section, copy from `src/sections/[section-id]/components/` to `product-plan/sections/[section-id]/components/`:
+
 - Transform import paths: `@/../product/sections/[section-id]/types` → `../types`
 - Remove Design OS-specific imports
 - Keep only the exportable components (not preview wrappers)
 
 ### Types Files
+
 Copy `product/sections/[section-id]/types.ts` to `product-plan/sections/[section-id]/types.ts`
 
 ### Sample Data
+
 Copy `product/sections/[section-id]/data.json` to `product-plan/sections/[section-id]/sample-data.json`
 
 ## Step 8: Generate Section READMEs
@@ -185,20 +212,25 @@ Be specific about UI text, labels, and expected messages in all assertions.
 ## Step 10: Generate Design System Files
 
 ### tokens.css
+
 CSS custom properties for colors and typography.
 
 ### tailwind-colors.md
+
 Color choices documentation with usage examples for primary, secondary, and neutral.
 
 ### fonts.md
+
 Google Fonts import snippet and font usage guide.
 
 ## Step 11: Generate Data Shapes Files
 
 ### data-shapes/README.md
+
 List all entities across sections with descriptions and which sections use them.
 
 ### data-shapes/overview.ts
+
 Aggregate all section entity types (data interfaces only, not Props) into one reference file with section-based grouping.
 
 ## Step 12: Generate Prompt Files
@@ -218,6 +250,7 @@ Please carefully read and analyze the following files:
 2. **@product-plan/instructions/one-shot-instructions.md** — Complete implementation instructions for all milestones
 
 After reading these, also review:
+
 - **@product-plan/design-system/** — Color and typography tokens
 - **@product-plan/data-shapes/** — UI data contracts
 - **@product-plan/shell/** — Application shell components
@@ -244,17 +277,19 @@ Template prompt with `SECTION_NAME`, `SECTION_ID`, and `NN` variables for increm
 ## Step 13: Generate README.md
 
 Create `product-plan/README.md` with:
+
 - What's included (prompts, instructions, design assets)
 - Option A: Incremental (recommended) — step-by-step guide
 - Option B: One-shot — single session guide
 - Testing guidance
 - Tips for using prompts and components
 
-Footer: *Generated by Design OS*
+Footer: _Generated by Design OS_
 
 ## Step 14: Copy Screenshots
 
 Copy any `.png` files from:
+
 - `product/shell/` → `product-plan/shell/`
 - `product/sections/[section-id]/` → `product-plan/sections/[section-id]/`
 
@@ -272,6 +307,7 @@ cd . && zip -r product-plan.zip product-plan/
 Let the user know what was generated, listing all prompt files, instruction files, design assets, and section packages. Mention restarting the dev server to access the Export page for downloading `product-plan.zip`.
 
 Explain how to use it:
+
 1. Copy `product-plan/` to their implementation codebase
 2. Open the appropriate prompt file
 3. Add notes, copy/paste into their coding agent
@@ -282,6 +318,7 @@ Explain how to use it:
 
 - Always transform import paths when copying components
 - Include `product-overview.md` context with every implementation session
+- Include `brand-guide.md` (if present) for brand consistency during implementation
 - Use the pre-written prompts — they prompt for important clarifying questions
 - Screenshots provide visual reference for fidelity checking
 - Sample data files are for testing before real APIs are built

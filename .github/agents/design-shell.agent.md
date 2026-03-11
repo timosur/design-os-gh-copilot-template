@@ -22,6 +22,7 @@ First, verify prerequisites exist:
 If overview or roadmap are missing:
 
 "Before designing the shell, you need to define your product and sections. Please use:
+
 1. `product-vision` agent — Define your product
 2. `product-roadmap` agent — Define your sections"
 
@@ -30,6 +31,40 @@ Stop here if overview or roadmap are missing.
 If design tokens are missing, show a warning but continue:
 
 "Note: Design tokens haven't been defined yet. I'll proceed with default styling, but you may want to use the `design-tokens` agent first for consistent colors and typography."
+
+## Step 1b: Check for Brand Guide
+
+Check if `product/brand-guide/brand-guide.json` exists.
+
+If the brand guide exists, read it and use its personality, voice, and UI style preferences to inform design decisions:
+
+**Brand Personality** — Use adjectives and mood to suggest appropriate layout patterns:
+
+- Professional/trustworthy → Clean sidebar with clear hierarchy
+- Playful/energetic → Bold colors, rounded elements, animated transitions
+- Minimal/refined → Subtle navigation, lots of whitespace
+- Technical/precise → Dense information, structured layout
+
+**Brand Voice** — Apply tone to navigation labels and UI copy suggestions:
+
+- Friendly tone → "Your Dashboard", "Let's create something"
+- Professional tone → "Dashboard", "New Project"
+- Technical tone → "System Overview", "Initialize"
+
+**UI Style Preferences** — Apply to component styling:
+
+- Border radius preference for buttons and cards
+- Shadow intensity for elevated elements
+- Border style for containers
+- Spacing/density for layout
+
+When presenting shell options, reference the brand guide:
+
+"Based on your brand guide, your product has a [personality adjectives] feel with [UI style preferences]. This suggests:
+
+- [Layout pattern recommendation]
+- [Navigation style recommendation]
+- [Visual treatment recommendation]"
 
 ## Step 2: Analyze Product Structure
 
@@ -44,13 +79,13 @@ Review the roadmap sections and present navigation options:
 Let's decide on the shell layout. Common patterns:
 
 **A. Sidebar Navigation** — Vertical nav on the left, content on the right
-   Best for: Apps with many sections, dashboard-style tools, admin panels
+Best for: Apps with many sections, dashboard-style tools, admin panels
 
 **B. Top Navigation** — Horizontal nav at top, content below
-   Best for: Simpler apps, marketing-style products, fewer sections
+Best for: Simpler apps, marketing-style products, fewer sections
 
 **C. Minimal Header** — Just logo + user menu, sections accessed differently
-   Best for: Single-purpose tools, wizard-style flows
+Best for: Single-purpose tools, wizard-style flows
 
 Which pattern fits **[Product Name]** best?"
 
@@ -74,16 +109,19 @@ Once you understand their preferences:
 **Layout Pattern:** [Sidebar/Top Nav/Minimal]
 
 **Navigation Structure:**
+
 - [Nav Item 1] → [Section]
 - [Nav Item 2] → [Section]
 - [Nav Item 3] → [Section]
 - [Additional items like Settings, Help]
 
 **User Menu:**
+
 - Location: [Top right / Bottom of sidebar]
 - Contents: Avatar, user name, logout
 
 **Responsive Behavior:**
+
 - Desktop: [How it looks]
 - Mobile: [How it adapts]
 
@@ -99,26 +137,32 @@ Create `product/shell/spec.md`:
 # Application Shell Specification
 
 ## Overview
+
 [Description of the shell design and its purpose]
 
 ## Navigation Structure
+
 - [Nav Item 1] → [Section 1]
 - [Nav Item 2] → [Section 2]
 - [Nav Item 3] → [Section 3]
 - [Any additional nav items]
 
 ## User Menu
+
 [Description of user menu location and contents]
 
 ## Layout Pattern
+
 [Description of the layout — sidebar, top nav, etc.]
 
 ## Responsive Behavior
+
 - **Desktop:** [Behavior]
 - **Tablet:** [Behavior]
 - **Mobile:** [Behavior]
 
 ## Design Notes
+
 [Any additional design decisions or notes]
 ```
 
@@ -127,28 +171,33 @@ Create `product/shell/spec.md`:
 Create the shell components at `src/shell/components/`:
 
 ### AppShell.tsx
+
 The main wrapper component that accepts children and provides the layout structure.
 
 ```tsx
 interface AppShellProps {
-  children: React.ReactNode
-  navigationItems: Array<{ label: string; href: string; isActive?: boolean }>
-  user?: { name: string; avatarUrl?: string }
-  onNavigate?: (href: string) => void
-  onLogout?: () => void
+  children: React.ReactNode;
+  navigationItems: Array<{ label: string; href: string; isActive?: boolean }>;
+  user?: { name: string; avatarUrl?: string };
+  onNavigate?: (href: string) => void;
+  onLogout?: () => void;
 }
 ```
 
 ### MainNav.tsx
+
 The navigation component (sidebar or top nav based on the chosen pattern).
 
 ### UserMenu.tsx
+
 The user menu with avatar and dropdown.
 
 ### index.ts
+
 Export all components.
 
 **Component Requirements:**
+
 - Use props for all data and callbacks (portable)
 - Apply design tokens if they exist (colors, fonts)
 - Support light and dark mode with `dark:` variants
@@ -161,36 +210,34 @@ Export all components.
 Create `src/shell/ShellPreview.tsx` — a preview wrapper for viewing the shell in Design OS:
 
 ```tsx
-import data from '@/../product/sections/[first-section]/data.json' // if exists
-import { AppShell } from './components/AppShell'
+import data from "@/../product/sections/[first-section]/data.json"; // if exists
+import { AppShell } from "./components/AppShell";
 
 export default function ShellPreview() {
   const navigationItems = [
-    { label: '[Section 1]', href: '/section-1', isActive: true },
-    { label: '[Section 2]', href: '/section-2' },
-    { label: '[Section 3]', href: '/section-3' },
-  ]
+    { label: "[Section 1]", href: "/section-1", isActive: true },
+    { label: "[Section 2]", href: "/section-2" },
+    { label: "[Section 3]", href: "/section-3" },
+  ];
 
   const user = {
-    name: 'Alex Morgan',
+    name: "Alex Morgan",
     avatarUrl: undefined,
-  }
+  };
 
   return (
     <AppShell
       navigationItems={navigationItems}
       user={user}
-      onNavigate={(href) => console.log('Navigate to:', href)}
-      onLogout={() => console.log('Logout')}
+      onNavigate={(href) => console.log("Navigate to:", href)}
+      onLogout={() => console.log("Logout")}
     >
       <div className="p-8">
         <h1 className="text-2xl font-bold mb-4">Content Area</h1>
-        <p className="text-stone-600 dark:text-stone-400">
-          Section content will render here.
-        </p>
+        <p className="text-stone-600 dark:text-stone-400">Section content will render here.</p>
       </div>
     </AppShell>
-  )
+  );
 }
 ```
 
@@ -199,12 +246,14 @@ export default function ShellPreview() {
 If design tokens exist, apply them to the shell components:
 
 **Colors:**
+
 - Read `product/design-system/colors.json`
 - Use primary color for active nav items, key accents
 - Use secondary color for hover states, subtle highlights
 - Use neutral color for backgrounds, borders, text
 
 **Typography:**
+
 - Read `product/design-system/typography.json`
 - Apply heading font to nav items and titles
 - Apply body font to other text
@@ -217,6 +266,7 @@ Let the user know:
 "I've designed the application shell for **[Product Name]**:
 
 **Created files:**
+
 - `product/shell/spec.md` — Shell specification
 - `src/shell/components/AppShell.tsx` — Main shell wrapper
 - `src/shell/components/MainNav.tsx` — Navigation component
@@ -225,6 +275,7 @@ Let the user know:
 - `src/shell/ShellPreview.tsx` — Preview wrapper
 
 **Shell features:**
+
 - [Layout pattern] layout
 - Navigation for all [N] sections
 - User menu with avatar and logout

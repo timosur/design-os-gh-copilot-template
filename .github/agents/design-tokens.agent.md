@@ -23,11 +23,45 @@ If it doesn't exist:
 
 Stop here if the prerequisite is missing.
 
+## Step 1b: Check for Brand Guide
+
+Check if `product/brand-guide/brand-guide.json` exists.
+
+If the brand guide exists, read it and use its color and typography recommendations as the starting point. The brand guide contains rationale for each choice, which you should share with the user.
+
+If a brand guide exists:
+
+"I found a brand guide for **[Product Name]**. It recommends:
+
+**Colors:**
+
+- Primary: `[color]` — [rationale from brand guide]
+- Secondary: `[color]` — [rationale from brand guide]
+- Neutral: `[color]` — [rationale from brand guide]
+
+**Typography:**
+
+- Heading: [font] — [rationale from brand guide]
+- Body: [font] — [rationale from brand guide]
+- Mono: [font] — [rationale from brand guide]
+
+Would you like to use these brand recommendations, or customize them?"
+
+If they want to use the brand guide as-is, skip to Step 5 (Present Final Choices).
+If they want to customize, proceed with Steps 3-4 but use brand guide values as defaults.
+
+If no brand guide exists, show an optional suggestion:
+
+"Note: You haven't created a brand guide yet. If you have brand assets (logos, style guides, color palettes), you can use the `brand-guide` agent first to analyze them. Otherwise, we'll choose colors and fonts from scratch."
+
+Proceed with the standard flow.
+
 ## Step 2: Explain the Process
 
 "Let's define the visual identity for **[Product Name]**.
 
 I'll help you choose:
+
 1. **Colors** — A primary accent, secondary accent, and neutral palette
 2. **Typography** — Fonts for headings, body text, and code
 
@@ -53,6 +87,7 @@ Should complement your primary — often a different hue or a neutral variation
 Options: `slate` (cool gray), `gray` (pure gray), `zinc` (slightly warm), `neutral`, `stone` (warm gray)
 
 Based on [Product Name], I'd suggest:
+
 - **Primary:** [suggestion] — [why it fits]
 - **Secondary:** [suggestion] — [why it complements]
 - **Neutral:** [suggestion] — [why it works]
@@ -81,6 +116,7 @@ Often the same as heading, or: `Inter`, `Source Sans 3`, `Nunito Sans`, `Open Sa
 Options: `IBM Plex Mono`, `JetBrains Mono`, `Fira Code`, `Source Code Pro`
 
 My suggestions for [Product Name]:
+
 - **Heading:** [suggestion] — [why]
 - **Body:** [suggestion] — [why]
 - **Mono:** [suggestion] — [why]
@@ -94,11 +130,13 @@ Once they've made decisions:
 "Here's your design system:
 
 **Colors:**
+
 - Primary: `[color]`
 - Secondary: `[color]`
 - Neutral: `[color]`
 
 **Typography:**
+
 - Heading: [Font Name]
 - Body: [Font Name]
 - Mono: [Font Name]
@@ -110,6 +148,7 @@ Does this look good? Ready to save it?"
 Once approved, create two files:
 
 **File 1:** `product/design-system/colors.json`
+
 ```json
 {
   "primary": "[color]",
@@ -119,6 +158,7 @@ Once approved, create two files:
 ```
 
 **File 2:** `product/design-system/typography.json`
+
 ```json
 {
   "heading": "[Font Name]",
@@ -142,15 +182,18 @@ For example, if the user chose `Nunito Sans` for heading/body and `IBM Plex Mono
 Let the user know:
 
 "I've saved your design tokens:
+
 - `product/design-system/colors.json`
 - `product/design-system/typography.json`
 
 **Your palette:**
+
 - Primary: `[color]` — for buttons, links, key actions
 - Secondary: `[color]` — for tags, highlights, secondary elements
 - Neutral: `[color]` — for backgrounds, text, borders
 
 **Your fonts:**
+
 - [Heading Font] for headings
 - [Body Font] for body text
 - [Mono Font] for code
@@ -162,6 +205,7 @@ Next step: Use the `design-shell` agent to design your application's navigation 
 ## Reference: Tailwind Color Palette
 
 Available colors (each has shades 50-950):
+
 - **Warm:** `red`, `orange`, `amber`, `yellow`, `lime`
 - **Cool:** `green`, `emerald`, `teal`, `cyan`, `sky`, `blue`
 - **Purple:** `indigo`, `violet`, `purple`, `fuchsia`, `pink`, `rose`

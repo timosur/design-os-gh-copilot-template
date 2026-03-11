@@ -5,7 +5,9 @@ import { AppLayout } from '@/components/AppLayout'
 import { EmptyState } from '@/components/EmptyState'
 import { StepIndicator, type StepStatus } from '@/components/StepIndicator'
 import { NextPhaseButton } from '@/components/NextPhaseButton'
+import { BrandGuideCard } from '@/components/BrandGuideCard'
 import { loadProductData } from '@/lib/product-loader'
+import { hasBrandGuide } from '@/lib/brand-guide-loader'
 import { ChevronRight, Layout } from 'lucide-react'
 
 // Map Tailwind color names to actual color values for preview
@@ -36,22 +38,38 @@ const colorMap: Record<string, { light: string; base: string; dark: string }> = 
 
 /**
  * Determine the status of each step on the Design page
- * Steps: 1. Design Tokens, 2. Shell Design
+ * Steps: 1. Brand Guide (optional), 2. Design Tokens, 3. Shell Design
  */
 function getDesignPageStepStatuses(
+  hasBrandGuideValue: boolean,
   hasDesignSystem: boolean,
   hasShell: boolean
 ): StepStatus[] {
   const statuses: StepStatus[] = []
 
-  // Step 1: Design Tokens
-  if (hasDesignSystem) {
+  // Step 1: Brand Guide (optional - always shows as completed if exists, current if not)
+  if (hasBrandGuideValue) {
     statuses.push('completed')
   } else {
-    statuses.push('current')
+    // Brand guide is optional, so if not present but design system exists, mark as skipped/upcoming
+    // If nothing else is done, make it current
+    if (!hasDesignSystem) {
+      statuses.push('current')
+    } else {
+      statuses.push('upcoming') // Skipped
+    }
   }
 
-  // Step 2: Shell
+  // Step 2: Design Tokens
+  if (hasDesignSystem) {
+    statuses.push('completed')
+  } else if (hasBrandGuideValue || statuses[0] === 'upcoming') {
+    statuses.push('current')
+  } else {
+    statuses.push('upcoming')
+  }
+
+  // Step 3: Shell
   if (hasShell) {
     statuses.push('completed')
   } else if (hasDesignSystem) {
@@ -65,14 +83,16 @@ function getDesignPageStepStatuses(
 
 export function DesignPage() {
   const productData = useMemo(() => loadProductData(), [])
+  const brandGuide = productData.brandGuide
   const designSystem = productData.designSystem
   const shell = productData.shell
 
+  const hasBrandGuideValue = hasBrandGuide()
   const hasDesignSystem = !!(designSystem?.colors || designSystem?.typography)
   const hasShell = !!shell?.spec
   const allStepsComplete = hasDesignSystem && hasShell
 
-  const stepStatuses = getDesignPageStepStatuses(hasDesignSystem, hasShell)
+  const stepStatuses = getDesignPageStepStatuses(hasBrandGuideValue, hasDesignSystem, hasShell)
 
   return (
     <AppLayout>
@@ -87,8 +107,13 @@ export function DesignPage() {
           </p>
         </div>
 
-        {/* Step 1: Design Tokens */}
-        <StepIndicator step={1} status={stepStatuses[0]}>
+        {/* Step 1: Brand Guide (Optional) */}
+        <StepIndicator step={1} status={stepStatuses[0]} optional>
+          <BrandGuideCard brandGuide={brandGuide} />
+        </StepIndicator>
+
+        {/* Step 2: Design Tokens */}
+        <StepIndicator step={2} status={stepStatuses[1]}>
           {!designSystem?.colors && !designSystem?.typography ? (
             <EmptyState type="design-system" />
           ) : (
@@ -162,8 +187,8 @@ export function DesignPage() {
           )}
         </StepIndicator>
 
-        {/* Step 2: Application Shell */}
-        <StepIndicator step={2} status={stepStatuses[1]} isLast={!allStepsComplete}>
+        {/* Step 3: Application Shell */}
+        <StepIndicator step={3} status={stepStatuses[2]} isLast={!allStepsComplete}>
           {!shell?.spec ? (
             <EmptyState type="shell" />
           ) : (
@@ -241,7 +266,7 @@ export function DesignPage() {
 
         {/* Next Phase Button - shown when all steps complete */}
         {allStepsComplete && (
-          <StepIndicator step={3} status="current" isLast>
+          <StepIndicator step={4} status="current" isLast>
             <NextPhaseButton nextPhase="sections" />
           </StepIndicator>
         )}

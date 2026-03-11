@@ -1,8 +1,8 @@
-import { FileText, Map, ClipboardList, Database, Layout, Package, Boxes, Palette, PanelLeft } from 'lucide-react'
+import { FileText, Map, ClipboardList, Database, Layout, Package, Boxes, Palette, PanelLeft, BookImage, FolderOpen, FileImage, Type } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { CopyButton } from '@/components/CopyButton'
 
-type EmptyStateType = 'overview' | 'roadmap' | 'spec' | 'data' | 'screen-designs' | 'data-shape' | 'design-system' | 'shell' | 'export'
+type EmptyStateType = 'overview' | 'roadmap' | 'spec' | 'data' | 'screen-designs' | 'data-shape' | 'brand-guide' | 'design-system' | 'shell' | 'export'
 
 interface EmptyStateProps {
   type: EmptyStateType
@@ -57,6 +57,13 @@ const config: Record<EmptyStateType, {
     agent: '@data-shape',
     starter: 'Define the data shape for my product',
     description: 'Sketch out the general shape of your product\'s data',
+  },
+  'brand-guide': {
+    icon: BookImage,
+    title: 'No brand guide created yet',
+    agent: '@brand-guide',
+    starter: 'Create a brand guide from my resources',
+    description: 'Import and analyze brand assets for consistent design',
   },
   'design-system': {
     icon: Palette,
@@ -119,6 +126,48 @@ export function EmptyState({ type, sectionName }: EmptyStateProps) {
               </p>
             </div>
           </div>
+
+          {/* Brand resources hint - only for brand-guide type */}
+          {type === 'brand-guide' && (
+            <div className="mt-4 w-full">
+              <div className="bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-md px-4 py-3">
+                <div className="flex items-start gap-3">
+                  <FolderOpen className="w-4 h-4 text-stone-400 dark:text-stone-500 mt-0.5 shrink-0" />
+                  <div className="space-y-2 text-left">
+                    <div>
+                      <p className="text-xs font-medium text-stone-600 dark:text-stone-300 mb-1">
+                        Optional: Add brand resources first
+                      </p>
+                      <code className="text-xs font-mono text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-800 px-1.5 py-0.5 rounded">
+                        product/brand-guide/resources/
+                      </code>
+                    </div>
+                    <div className="text-xs text-stone-500 dark:text-stone-400 space-y-1">
+                      <p className="font-medium text-stone-600 dark:text-stone-300">What to add:</p>
+                      <ul className="space-y-0.5 ml-1">
+                        <li className="flex items-center gap-1.5">
+                          <FileImage className="w-3 h-3" />
+                          <span>Logos (SVG, PNG)</span>
+                        </li>
+                        <li className="flex items-center gap-1.5">
+                          <FileText className="w-3 h-3" />
+                          <span>Style guides, brand docs (PDF, images)</span>
+                        </li>
+                        <li className="flex items-center gap-1.5">
+                          <Palette className="w-3 h-3" />
+                          <span>Color palettes, mood boards</span>
+                        </li>
+                        <li className="flex items-center gap-1.5">
+                          <Type className="w-3 h-3" />
+                          <span>Font files (TTF, OTF, WOFF)</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
